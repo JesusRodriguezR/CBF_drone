@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.prototxt
+*.pickle
+*.h5
+*.onnx
+*.weights
+*.pt
+
+# Simulation results
+simulations/simulation_results/*.png
+simulations/simulation_results/*.csv
+simulations/simulation_results/*.json
+
+# Data
+data/results/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Antigravity artifacts (if they were inside, but they aren't)
+.gemini/
