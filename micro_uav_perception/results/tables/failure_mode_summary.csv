@@ -1,0 +1,12 @@
+condition,n_samples,rmse_dx,rmse_dy,rmse_dyaw,type
+all_test,820,0.082509734,0.09919964,0.046268575,motion_category
+fast_motion,164,0.106034845,0.14253919,0.06748869,motion_category
+slow_motion,164,0.12365676,0.08026919,0.033805266,motion_category
+high_yaw,164,0.09791647,0.16692147,0.07801355,motion_category
+forward_dominant,549,0.069128126,0.08039619,0.038376924,motion_category
+normal,820,0.082509734,0.09919964,0.046268575,augmentation
+low_texture,820,0.08248199,0.09915868,0.046258144,augmentation
+motion_blur,820,0.08248991,0.09917326,0.046258718,augmentation
+brightness_dark,820,0.08411035,0.10127456,0.0452749,augmentation
+brightness_bright,820,0.08194712,0.09925052,0.046842404,augmentation
+noise,820,0.082540594,0.09922827,0.04628502,augmentation

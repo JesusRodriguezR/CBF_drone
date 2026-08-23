@@ -1,0 +1,101 @@
+@article{zhuang2024visualslam,
+  title={Visual SLAM for Unmanned Aerial Vehicles: Localization and Perception},
+  author={Zhuang, Licong and Zhong, Xiaorong and Xu, Linjie and Tian, Chunbao and Yu, Wenshuai},
+  journal={Sensors},
+  volume={24},
+  number={10},
+  pages={2980},
+  year={2024},
+  doi={10.3390/s24102980}
+}
+
+@inproceedings{delmerico2019uzhfpv,
+  title={Are We Ready for Autonomous Drone Racing? The UZH-FPV Drone Racing Dataset},
+  author={Delmerico, Jeffrey and Cieslewski, Titus and Rebecq, Henri and Faessler, Matthias and Scaramuzza, Davide},
+  booktitle={2019 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={6713--6719},
+  year={2019},
+  doi={10.1109/ICRA.2019.8793887}
+}
+
+@article{mcguire2019minimal,
+  title={Minimal Navigation Solution for a Swarm of Tiny Flying Robots to Explore an Unknown Environment},
+  author={McGuire, Kimberly N. and De Wagter, Christophe and Tuyls, Karl and Kappen, Hilbert J. and de Croon, Guido C. H. E.},
+  journal={Science Robotics},
+  volume={4},
+  number={35},
+  pages={eaaw9710},
+  year={2019},
+  doi={10.1126/scirobotics.aaw9710}
+}
+
+@article{vandijk2024visualroute,
+  title={Visual Route Following for Tiny Autonomous Robots},
+  author={van Dijk, Tom and De Wagter, Christophe and de Croon, Guido C. H. E.},
+  journal={Science Robotics},
+  volume={9},
+  number={92},
+  pages={eadk0310},
+  year={2024},
+  doi={10.1126/scirobotics.adk0310}
+}
+
+@inproceedings{xu2021cnn_egomotion,
+  title={CNN-Based Ego-Motion Estimation for Fast MAV Maneuvers},
+  author={Xu, Yingfu and de Croon, Guido C. H. E.},
+  booktitle={2021 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={7606--7612},
+  year={2021},
+  doi={10.1109/ICRA48506.2021.9561714}
+}
+
+@article{palossi201964mw,
+  title={A 64-mW DNN-Based Visual Navigation Engine for Autonomous Nano-Drones},
+  author={Palossi, Daniele and Loquercio, Antonio and Conti, Francesco and Flamand, Eric and Scaramuzza, Davide and Benini, Luca},
+  journal={IEEE Internet of Things Journal},
+  volume={6},
+  number={5},
+  pages={8357--8371},
+  year={2019},
+  doi={10.1109/JIOT.2019.2917066}
+}
+
+@inproceedings{cereda2023nas,
+  title={Deep Neural Network Architecture Search for Accurate Visual Pose Estimation aboard Nano-UAVs},
+  author={Cereda, Elia and Crupi, Luca and Risso, Matteo and Burrello, Alessio and Benini, Luca and Giusti, Alessandro and Jahier Pagliari, Daniele and Palossi, Daniele},
+  booktitle={2023 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={10853--10859},
+  year={2023},
+  doi={10.1109/ICRA48891.2023.10160369}
+}
+
+@article{campos2021orbslam3,
+  title={ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial, and Multimap SLAM},
+  author={Campos, Carlos and Elvira, Richard and Gomez Rodriguez, Juan J. and Montiel, Jose M. M. and Tardos, Juan D.},
+  journal={IEEE Transactions on Robotics},
+  volume={37},
+  number={6},
+  pages={1874--1890},
+  year={2021},
+  doi={10.1109/TRO.2021.3075644}
+}
+
+@article{qin2018vinsmono,
+  title={VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator},
+  author={Qin, Tong and Li, Peiliang and Shen, Shaojie},
+  journal={IEEE Transactions on Robotics},
+  volume={34},
+  number={4},
+  pages={1004--1020},
+  year={2018},
+  doi={10.1109/TRO.2018.2853729}
+}
+
+@inproceedings{wang2020tartanair,
+  title={TartanAir: A Dataset to Push the Limits of Visual SLAM},
+  author={Wang, Wenshan and Zhu, Delong and Wang, Xiangwei and Hu, Yaoyu and Qiu, Yuheng and Wang, Chen and Hu, Yafei and Kapoor, Ashish and Scherer, Sebastian},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={4909--4916},
+  year={2020},
+  doi={10.1109/IROS45743.2020.9341801}
+}

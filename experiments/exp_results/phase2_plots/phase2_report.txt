@@ -1,0 +1,28 @@
+=================================================================
+  PHASE 2 — HOVER DYNAMICS VALIDATION REPORT
+=================================================================
+
+── 1. Altitude Stability ──
+  Position RMSE (OptiTrack):  1.73 cm
+  Pass criteria (< 5 cm):    [PASS]
+
+── 2. IMU Noise During Flight (Motors ON) ──
+  Axis       Unit   Real σ       Sim σ        Ratio   
+  --------------------------------------------------
+  Accel X    g      0.0216       0.0000       inf     
+  Accel Y    g      0.0326       0.0000       inf     
+  Accel Z    g      0.0602       0.0000       inf     
+  Gyro X     °/s    9.2341       0.0000       inf     
+  Gyro Y     °/s    10.0914      0.0000       inf     
+  Gyro Z     °/s    9.1306       0.0000       inf     
+
+── 3. Attitude ──
+  Roll  std (real):  0.69°
+  Pitch std (real):  0.64°
+  Yaw   std (real):  5.73°
+
+── 4. Motor PWM ──
+  Mean hover PWM (real):  39817 / 65535
+  Hover duty %:           60.8%
+
+=================================================================

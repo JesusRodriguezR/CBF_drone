@@ -143,3 +143,93 @@ class CrazyflieParams:
         assert self.k_f > 0, "Thrust coefficient must be positive"
         assert self.k_m > 0, "Torque coefficient must be positive"
         assert self.motor_time_constant > 0, "Motor time constant must be positive"
+
+    @classmethod
+    def brushless(cls) -> 'CrazyflieParams':
+        """
+        Factory for Crazyflie 2.1 Brushless + Flow deck v2.
+
+        Hardware: 08028-10000KV motors, 55mm/35mm-pitch propellers,
+                  1S 5A ESC (BLHeli_S/Bluejay), Flow deck v2.
+
+        Key differences from stock brushed CF 2.1:
+            - 55 mm propellers (vs 45 mm) → higher k_f
+            - Brushless ESC response ~10 ms (vs ~20 ms brushed)
+            - ~50% more thrust per motor (30 g vs ~15 g max)
+            - Heavier (~34–37 g vs 27–33 g)
+
+        Sources:
+            - Bitcraze product specs (bitcraze.io/products/crazyflie-2-1-brushless)
+            - Gräfe, Scherer, Hönig, Trimpe, "How to Model Your Crazyflie
+              Brushless", ICRA 2026 (arXiv:2603.05944)
+            - Bitcraze 08028-10000KV motor datasheet: 30 g max thrust,
+              peak 1.8 A / 7.2 W, ~5 g/W efficiency at 10 g thrust
+            - Frame: 100 mm diagonal (50 mm center-to-motor)
+        """
+        # ── Thrust coefficient derivation ──
+        # Max thrust = 30 g = 0.2943 N per motor at ~25000 RPM
+        # F = k_f * omega^2  →  k_f = F / omega^2
+        # omega_max = 25000 * 2π/60 ≈ 2618 rad/s
+        # k_f = 0.2943 / (2618^2) ≈ 4.30e-8  [N/(rad/s)^2]
+        # In RPM units: k_f_rpm = 0.2943 / 25000^2 ≈ 4.71e-10 [N/RPM^2]
+        _k_f_rpm = 4.71e-10                # N/RPM²
+        _k_m_rpm = _k_f_rpm * 0.0060       # k_m/k_f ≈ 0.006 m for 55 mm props
+        _rpm_to_rad = (60.0 / (2.0 * np.pi))**2  # conversion factor RPM²→(rad/s)²
+
+        return cls(
+            # ── Mass & Geometry ──
+            mass=0.037,               # ~37 g: base 32g + Flow deck ~3.5g + battery
+            arm_length=0.050,         # 100 mm diagonal / 2 (Bitcraze spec)
+
+            # Inertia: scaled from Förster 2015 values by mass ratio
+            # (m_bl/m_stock = 37/33 = 1.12) and arm length ratio
+            # (50/46 = 1.087)². Heavier motor tips increase Ixx/Iyy.
+            Ixx=20.5e-6,
+            Iyy=20.6e-6,
+            Izz=35.5e-6,
+            Ixy=0.9e-6,
+            Ixz=0.8e-6,
+            Iyz=1.9e-6,
+
+            # ── Motor & Propeller ──
+            # 08028-10000KV motors + 55mm/35mm-pitch propellers
+            k_f=_k_f_rpm * _rpm_to_rad,
+            k_m=_k_m_rpm * _rpm_to_rad,
+
+            # Brushless ESC response is faster than brushed DC
+            motor_time_constant=0.010,    # ~10 ms (BLHeli_S)
+
+            motor_min_rpm=0.0,
+            motor_max_rpm=25000.0,        # 10000 KV × 4.2 V ≈ 42000 RPM unloaded
+                                          # ~25000 RPM loaded with 55mm props
+
+            # PWM-to-thrust: quadratic fit for brushless
+            # F = a * pwm^2 + b * pwm  where pwm ∈ [0, 1] (normalised)
+            # Anchor points (derived from real hover flight data):
+            #   pwm = 0.0  → F = 0 N       (motors off)
+            #   pwm ≈ 0.57 → F = 0.0907 N  (hover at 37 g, from logged M1≈37280/65535)
+            #   pwm = 1.0  → F = 0.2943 N  (max thrust: 30 g per motor)
+            # Solving: a·p² + b·p = F_hover  and  a + b = F_max
+            pwm_thrust_a=0.3126,    # N (quadratic term for pwm ∈ [0,1])
+            pwm_thrust_b=-0.0183,   # N (linear term for pwm ∈ [0,1])
+
+            max_thrust_per_motor=0.2943,  # 30 g × 9.81 m/s²
+
+            # ── Aerodynamics ──
+            k_drag_xy=0.012,              # slightly higher with 55mm props
+            k_drag_z=0.006,
+            k_rot_drag=1.5e-5,            # larger props → more rot drag
+            ground_effect_ceiling=0.12,    # ~2× rotor radius (55mm/2)
+            ground_effect_max_multiplier=1.15,
+
+            # ── Sensor Noise (same IMU: BMI088) ──
+            accel_noise_density=150e-6 * 9.81,
+            accel_bias_instability=40e-3 * 9.81,
+            gyro_noise_density=0.014 * np.pi / 180.0,
+            gyro_bias_instability=1.0 * np.pi / 180.0,
+            imu_sample_rate=1000.0,
+
+            # ── Environment ──
+            g=9.81,
+            rho=1.225,
+        )

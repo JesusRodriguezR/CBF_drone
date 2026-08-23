@@ -1,0 +1,2 @@
+model,input,output,RMSE_dx,RMSE_dy,RMSE_dyaw,MAE_dx,MAE_dy,MAE_dyaw,RMSE_position,MAE_position,inference_ms,FPS
+TinyCNN,3x96x96 grayscale triplet,local-frame dx dy dyaw,0.082510,0.099200,0.046269,0.064617,0.078956,0.035137,0.129029,0.113198,1.84,545

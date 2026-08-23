@@ -57,16 +57,16 @@ ALTITUDE_RATE = 0.5                            # m/s altitude change rate
 INPUT_SMOOTHING = 0.12                         # exponential smoothing factor (0–1, lower = smoother)
 
 # Colours (R, G, B, A) normalised
-COL_SKY = (0.05, 0.05, 0.12, 1.0)
-COL_GRID = (0.15, 0.25, 0.35, 0.6)
-COL_GRID_AXES = (0.3, 0.4, 0.5, 0.8)
-COL_ARM_FRONT = (0.95, 0.25, 0.2, 1.0)     # Red front arms
-COL_ARM_REAR = (0.2, 0.4, 0.95, 1.0)       # Blue rear arms
-COL_BODY = (0.2, 0.2, 0.2, 1.0)            # Dark body
-COL_MOTOR_CW = (1.0, 0.85, 0.0, 0.9)       # Yellow CW
-COL_MOTOR_CCW = (0.0, 0.95, 0.6, 0.9)      # Cyan CCW
-COL_TRAIL = (0.3, 0.8, 1.0, 0.5)           # Light blue trail
-COL_THRUST = (1.0, 0.5, 0.0, 0.6)          # Orange thrust indicator
+COL_SKY = (1.0, 1.0, 1.0, 1.0)             # White background
+COL_GRID = (0.5, 0.5, 0.5, 0.8)            # Higher contrast grid lines
+COL_GRID_AXES = (0.0, 0.0, 0.0, 0.9)       # Pure black axes
+COL_ARM_FRONT = (0.9, 0.0, 0.0, 1.0)       # Deep vivid red front arms
+COL_ARM_REAR = (0.0, 0.0, 0.9, 1.0)        # Deep vivid blue rear arms
+COL_BODY = (0.0, 0.0, 0.0, 1.0)            # Pure black body
+COL_MOTOR_CW = (0.8, 0.5, 0.0, 1.0)        # Bold orange CW
+COL_MOTOR_CCW = (0.0, 0.6, 0.6, 1.0)       # Bold dark cyan CCW
+COL_TRAIL = (0.0, 0.4, 0.8, 0.8)           # Darker blue trail
+COL_THRUST = (1.0, 0.3, 0.0, 0.8)          # Deeper orange thrust indicator
 
 
 # ── 3D Drawing Functions ──────────────────────────────────────────────
@@ -188,7 +188,7 @@ def draw_crazyflie(arm_length, motor_speeds, max_speed):
         glPopMatrix()
 
     # ── Heading indicator (small triangle on nose) ──
-    glColor4f(1.0, 1.0, 1.0, 0.9)
+    glColor4f(0.1, 0.1, 0.1, 0.9)
     nose = arm_length * 0.15
     glBegin(GL_TRIANGLES)
     glVertex3f(arm_length * 0.55, 0, 0)
@@ -239,11 +239,11 @@ def draw_hud(surface, font, font_small, telemetry):
     white = (220, 225, 240)
 
     # ── Left panel: Flight Data ──
-    panel_w, panel_h = 250, 200
+    panel_w, panel_h = 320, 280
     panel_surface = pygame.Surface((panel_w, panel_h), pygame.SRCALPHA)
     panel_surface.fill(panel_color)
 
-    y_offset = 10
+    y_offset = 15
     lines = [
         (f"ALT   {telemetry['altitude']:7.2f} m", accent),
         (f"VEL   {telemetry['speed']:7.2f} m/s", white),
@@ -257,16 +257,16 @@ def draw_hud(surface, font, font_small, telemetry):
         if text:
             rendered = font.render(text, True, color)
             panel_surface.blit(rendered, (12, y_offset))
-        y_offset += 22
+        y_offset += 35
 
     surface.blit(panel_surface, (10, 10))
 
     # ── Right panel: Motors ──
-    panel_w2, panel_h2 = 220, 150
+    panel_w2, panel_h2 = 320, 200
     panel_surface2 = pygame.Surface((panel_w2, panel_h2), pygame.SRCALPHA)
     panel_surface2.fill(panel_color)
 
-    y_offset = 10
+    y_offset = 15
     motor_names = ["M1 (CW) ", "M2 (CCW)", "M3 (CW) ", "M4 (CCW)"]
     motor_colors_hud = [COL_MOTOR_CW, COL_MOTOR_CCW, COL_MOTOR_CW, COL_MOTOR_CCW]
     for i in range(4):
@@ -279,27 +279,27 @@ def draw_hud(surface, font, font_small, telemetry):
         panel_surface2.blit(rendered, (12, y_offset))
 
         # Bar graph
-        bar_x, bar_y = 12, y_offset + 18
+        bar_x, bar_y = 12, y_offset + 25
         bar_w = int((panel_w2 - 24) * pct / 100)
-        pygame.draw.rect(panel_surface2, (*color_tuple, 80), (bar_x, bar_y, panel_w2 - 24, 4))
-        pygame.draw.rect(panel_surface2, color_tuple, (bar_x, bar_y, bar_w, 4))
+        pygame.draw.rect(panel_surface2, (*color_tuple, 80), (bar_x, bar_y, panel_w2 - 24, 6))
+        pygame.draw.rect(panel_surface2, color_tuple, (bar_x, bar_y, bar_w, 6))
 
-        y_offset += 30
+        y_offset += 45
 
     surface.blit(panel_surface2, (WINDOW_WIDTH - panel_w2 - 10, 10))
 
     # ── Bottom bar: Controls & FPS ──
-    bar_h = 30
+    bar_h = 40
     bar_surface = pygame.Surface((WINDOW_WIDTH, bar_h), pygame.SRCALPHA)
     bar_surface.fill((10, 15, 30, 160))
 
     controls_text = "W/S: Pitch  A/D: Roll  Q/E: Yaw  ↑/↓: Alt  Space: Stop  R: Reset  C: Camera  Esc: Quit"
     rendered = font_small.render(controls_text, True, (150, 160, 180))
-    bar_surface.blit(rendered, (12, 6))
+    bar_surface.blit(rendered, (12, 10))
 
     fps_text = f"FPS: {telemetry['fps']:.0f}  |  SIM: {telemetry['sim_time']:.1f}s"
     rendered = font_small.render(fps_text, True, accent)
-    bar_surface.blit(rendered, (WINDOW_WIDTH - 200, 6))
+    bar_surface.blit(rendered, (WINDOW_WIDTH - 280, 10))
 
     surface.blit(bar_surface, (0, WINDOW_HEIGHT - bar_h))
 
@@ -564,8 +564,8 @@ class RealtimeSimulation:
         # We cannot directly use pygame fonts on an OpenGL surface,
         # so we render the HUD to a texture and overlay it
         pygame.font.init()
-        font = pygame.font.SysFont("Consolas", 16)
-        font_small = pygame.font.SysFont("Consolas", 13)
+        font = pygame.font.SysFont("Consolas", 24, bold=True)
+        font_small = pygame.font.SysFont("Consolas", 16, bold=True)
 
         clock = pygame.time.Clock()
 
@@ -596,7 +596,7 @@ class RealtimeSimulation:
                         self.camera_follow = not self.camera_follow
                 # Mouse wheel for camera zoom
                 elif event.type == MOUSEWHEEL:
-                    self.camera_distance = max(1.0, min(15.0,
+                    self.camera_distance = max(0.1, min(15.0,
                         self.camera_distance - event.y * 0.3))
 
             # Mouse drag for camera orbit

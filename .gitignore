@@ -34,6 +34,29 @@ venv/
 ENV/
 env/
 .env
+**/perception_env/
+*_env/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Experiment cache
+experiments/cache/
+
+# Large datasets (>11GB UZH FPV data)
+micro_uav_perception/data/
+
+# External cloned repos
+aideck-gap8-examples/
 
 # Antigravity artifacts (if they were inside, but they aren't)
 .gemini/

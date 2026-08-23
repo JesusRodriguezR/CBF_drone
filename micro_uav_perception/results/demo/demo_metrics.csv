@@ -1,0 +1,12 @@
+metric,value,unit
+RMSE_dx,0.0825,m
+RMSE_dy,0.0992,m
+RMSE_dyaw,0.0463,rad
+Mean_ATE,10.5263,m
+Final_Drift,16.6165,m
+GT_Path_Length,128.6742,m
+Drift_Per_Meter,0.1291,m/m
+Avg_Inference_ms,1.84,ms
+FPS,545,fps
+Model_Params,~72K,-
+Test_Samples,820,-

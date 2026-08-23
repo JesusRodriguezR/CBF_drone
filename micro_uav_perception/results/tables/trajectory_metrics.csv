@@ -1,0 +1,6 @@
+metric,value,unit
+mean_ATE,10.526341,m
+final_drift,16.616476,m
+gt_path_length,128.674164,m
+drift_per_meter,0.129136,m/m
+num_frames,821,

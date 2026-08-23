@@ -1,0 +1,2 @@
+cfloader flash aideck_gap8_wifi_img_streamer_with_ap.bin deck-bcAI:gap8-fw -w radio://0/80/2M/E7E7E
+CF1deckpassword

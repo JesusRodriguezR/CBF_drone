@@ -1,0 +1,11 @@
+split,sequence,num_images_listed,num_images_matched,num_pairs,num_processed_frames,image_resolution,label_type,mean_abs_gt_dt_ms,max_abs_gt_dt_ms
+train,indoor_forward_3,2552,1335,1333,1335,96x96,"local_dx,local_dy,dyaw",0.5438508696563948,33.272155999839015
+train,indoor_forward_5,4162,532,530,532,96x96,"local_dx,local_dy,dyaw",0.649672253687579,42.23203659057617
+train,indoor_forward_6,1970,819,817,819,96x96,"local_dx,local_dy,dyaw",0.5678507580134168,33.179521560668945
+val,indoor_forward_7,3177,1738,1736,1738,96x96,"local_dx,local_dy,dyaw",0.5506943778421031,47.7597713470459
+val,indoor_forward_9,2068,769,767,769,96x96,"local_dx,local_dy,dyaw",0.5846563024235639,33.2179069519043
+test,indoor_forward_10,2126,822,820,822,96x96,"local_dx,local_dy,dyaw",0.5668366912507663,33.31303596496582
+train,__split_total__,2686,,2680,2686,96x96,"local_dx,local_dy,dyaw",,
+val,__split_total__,2507,,2503,2507,96x96,"local_dx,local_dy,dyaw",,
+test,__split_total__,822,,820,822,96x96,"local_dx,local_dy,dyaw",,
+all,__all__,6015,,6003,6015,96x96,"local_dx,local_dy,dyaw",,
