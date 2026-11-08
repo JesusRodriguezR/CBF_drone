@@ -41,6 +41,13 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
+Install the GUI/runtime dependencies before launching:
+
+```bash
+sudo apt update
+sudo apt install ros-humble-rqt-image-view python3-tk
+```
+
 Set the model path using the restored dependency:
 
 ```bash
@@ -52,26 +59,61 @@ copying the build or install directories.
 
 ## Run the current monitoring scenario
 
-```bash
-ros2 launch ros_gz_crazyflie_bringup crazyflie_simulation.launch.py \
-  camera_view:=false impairment_gui:=false \
-  perception_log_path:=/tmp/perception_monitoring.csv
-```
-
-In another terminal:
+Use the restored model path in every new shell:
 
 ```bash
 source /opt/ros/humble/setup.bash
 source /path/to/vgreen/recovery/ros_workspace/install/setup.bash
+export ROS_LOG_DIR=/tmp/ros2_logs
+export GZ_SIM_RESOURCE_PATH=/path/to/vgreen/recovery/external/crazyflie_simulation_models/crazyflie-simulation/simulator_files/gazebo:${GZ_SIM_RESOURCE_PATH:-}
+```
+
+The full bundle opens Gazebo, the camera viewer, and the impairment GUI. It
+also starts the bridge, controller, FlowDeck simulator, impairment node, and
+passive perception logger as background ROS nodes:
+
+```bash
+ros2 launch ros_gz_crazyflie_bringup crazyflie_simulation.launch.py \
+  camera_view:=true impairment_gui:=true \
+  perception_log_path:=/tmp/perception_monitoring.csv
+```
+
+The launch file defaults `camera_view`, `impairment_gui`, and
+`baseline_perception` to `True`. Set either GUI argument to `false` for a
+headless run. The camera viewer is `rqt_image_view`; the impairment GUI is a
+Tk window with live delay, jitter, packet-loss, ordering, and statistics
+controls. The perception logger has no window and writes CSV data.
+
+Start the top-down visualizer in a second terminal. This is a separate node and
+is not opened automatically by the Gazebo launch:
+
+```bash
+source /opt/ros/humble/setup.bash
+source /path/to/vgreen/recovery/ros_workspace/install/setup.bash
+export ROS_LOG_DIR=/tmp/ros2_logs
 ros2 run ros_gz_crazyflie_control greenhouse_fsm_visualizer
 ```
 
-In a third terminal:
+Start the monitoring FSM in a third terminal. This is also a separate node:
 
 ```bash
+source /opt/ros/humble/setup.bash
+source /path/to/vgreen/recovery/ros_workspace/install/setup.bash
+export ROS_LOG_DIR=/tmp/ros2_logs
 ros2 run ros_gz_crazyflie_control greenhouse_fsm_trial --ros-args \
   -p n_lanes:=1 -p observation_duration:=1.5 \
   -p observation_min_frames:=3
+```
+
+Expected windows/processes are:
+
+```text
+Gazebo                         automatic
+Camera viewer                  automatic with camera_view:=true
+Impairment/jitter GUI          automatic with impairment_gui:=true
+Top-down FSM visualizer        separate greenhouse_fsm_visualizer command
+Monitoring FSM                 separate greenhouse_fsm_trial command
+Baseline perception logger     background node, no window
 ```
 
 For the full bundle, use `camera_view:=true impairment_gui:=true`. The
