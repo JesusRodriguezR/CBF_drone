@@ -1,0 +1,36 @@
+# Repeatable camera impairment conditions for passive perception experiments.
+baseline:
+  delay_mode: disabled
+  base_delay_ms: 0
+  jitter_ms: 0
+  jitter_distribution: uniform
+  packet_loss_enabled: false
+  packet_loss_probability: 0
+fixed_delay:
+  delay_mode: fixed
+  base_delay_ms: 100
+  jitter_ms: 0
+  jitter_distribution: uniform
+  packet_loss_enabled: false
+  packet_loss_probability: 0
+jitter:
+  delay_mode: jitter
+  base_delay_ms: 50
+  jitter_ms: 25
+  jitter_distribution: uniform
+  packet_loss_enabled: false
+  packet_loss_probability: 0
+packet_loss:
+  delay_mode: disabled
+  base_delay_ms: 0
+  jitter_ms: 0
+  jitter_distribution: uniform
+  packet_loss_enabled: true
+  packet_loss_probability: 10
+combined:
+  delay_mode: jitter
+  base_delay_ms: 100
+  jitter_ms: 25
+  jitter_distribution: gaussian
+  packet_loss_enabled: true
+  packet_loss_probability: 10

@@ -1,0 +1,5 @@
+[
+  {"monitoring_point_id": "aisle01_mp01", "aisle": 1, "longitudinal_position": -12.0, "crop_side": "left", "observation_yaw_offset": 90.0, "crop_section_id": "row_01_section_01"},
+  {"monitoring_point_id": "aisle01_mp02", "aisle": 1, "longitudinal_position": 0.0, "crop_side": "right", "observation_yaw_offset": -90.0, "crop_section_id": "row_01_section_02"},
+  {"monitoring_point_id": "aisle01_mp03", "aisle": 1, "longitudinal_position": 12.0, "crop_side": "left", "observation_yaw_offset": 90.0, "crop_section_id": "row_01_section_03"}
+]
